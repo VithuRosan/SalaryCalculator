@@ -1,0 +1,198 @@
+<html>
+
+<head>
+
+<title>Results</title>
+
+<style>
+
+ body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('AZ.jpg');
+            background-size: cover; 
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+.container {
+
+width: 250px;
+
+margin: 0 auto;
+
+padding: 90px;
+
+background: rgba(255, 255, 255, 0.8); 
+
+border-radius: 5px;
+
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+
+text-align: center;
+
+}
+
+input[type="text"], input[type="password"], input[type="number"] {
+
+width: 100%;
+
+padding: 10px;
+
+margin: 10px 0;
+
+border: 1px solid #ccc;
+
+border-radius: 5px;
+
+}
+
+input[type="submit"] {
+
+width: 100%;
+
+padding: 10px;
+
+background: #4caf50;
+
+color: #fff;
+
+border: none;
+
+border-radius: 5px;
+
+cursor: pointer;
+
+}
+
+#overview-container {
+     width: 250px;
+
+margin: 0 auto;
+
+padding: 90px;
+
+background: rgba(255, 255, 255, 0.8); 
+
+border-radius: 5px;
+
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+
+ 10px rgba(0, 0, 0, 0.6);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #333;
+    }
+
+    p {
+      margin: 8px 0;
+      font-size: 16px;
+      color: #666;
+      font-weight: bolder;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #000;
+    }
+
+    .highlight25 {
+      font-weight: bold;
+      color: #000;
+      text-align: right;
+    }
+
+    .cen{
+        text-align: center;
+
+    }
+    
+     /* Hide the print button when printing */
+    @media print {
+      #print-button {
+        display: none;
+      }
+    }
+
+</style>
+
+</head>
+
+<body>
+    <div id="overview-container">
+      <h1>Salary Overview</h1>
+      <div id="result-container">
+     
+      </div>
+      <button id="print-button" onclick="printSalaryOverview()">Print</button>
+    </div>
+  
+    <script>
+     
+      function printSalaryOverview() {
+      const username = sessionStorage.getItem("username");
+      const employeeName = sessionStorage.getItem("employeeName");
+      const employeeType = sessionStorage.getItem("employeeType");
+      const workingDays = parseInt(sessionStorage.getItem("workingDays"), 10);
+      const noPayLeave = parseInt(sessionStorage.getItem("noPayLeave"), 10);
+      const overtimeHours = parseInt(sessionStorage.getItem("overtimeHours"), 10);
+
+      const dailyRate = employeeType === "permanent" ? 1000 : 800;
+
+      const totalSalary = (workingDays - noPayLeave) * dailyRate + overtimeHours * 100;
+
+      const resultContainer = document.getElementById("result-container");
+      const resultHTML = `
+      <h2 class="cen">Results</h2>
+         <p><span class="highlight">Employee Name:</span> ${employeeName}</p>
+         <p><span class="highlight">Employee Type:</span> ${employeeType}</p>
+         <p><span class="highlight">Working Days:</span> ${workingDays}</p>
+         <p><span class="highlight">No Pay Leave:</span> ${noPayLeave}</p>
+         <p style="margin-bottom: 15px;"><span class="highlight"  >Overtime Hours:</span> ${overtimeHours}</p>
+         <p style="font-size: x-large;" ><span class="highlight25">Total Salary:</span> $${totalSalary}</p>
+         `;
+      resultContainer.innerHTML = resultHTML;
+
+      // Print only the result-container content
+      window.print();
+
+      // After printing, navigate to test4.html
+      window.location.href = "username.html";
+    }
+    window.onload = function () {
+      const username = sessionStorage.getItem("username");
+        const employeeName = sessionStorage.getItem("employeeName");
+        const employeeType = sessionStorage.getItem("employeeType");
+        const workingDays = parseInt(sessionStorage.getItem("workingDays"), 10);
+        const noPayLeave = parseInt(sessionStorage.getItem("noPayLeave"), 10);
+        const overtimeHours = parseInt(sessionStorage.getItem("overtimeHours"), 10);
+  
+        // Calculate daily rate based on employee type
+        const dailyRate = employeeType === "permanent" ? 1000 : 800;
+  
+        // Calculate total salary
+        const totalSalary = (workingDays - noPayLeave) * dailyRate + overtimeHours * 100;
+  
+        const resultContainer = document.getElementById("result-container");
+        const resultHTML = `
+        <h2 class="cen">Results</h2>
+        <p><span class="highlight">Employee Name:</span> ${employeeName}</p>
+        <p><span class="highlight">Employee Type:</span> ${employeeType}</p>
+        <p><span class="highlight">Working Days:</span> ${workingDays}</p>
+        <p><span class="highlight">No Pay Leave:</span> ${noPayLeave}</p>
+        <p style="margin-bottom: 15px;"><span class="highlight"  >Overtime Hours:</span> ${overtimeHours}</p>
+        <p style="font-size: x-large;" ><span class="highlight25">Total Salary:</span> $${totalSalary}</p>
+        `;
+        resultContainer.innerHTML = resultHTML;
+    };
+    </script>
+  </body>
+
+</html>
